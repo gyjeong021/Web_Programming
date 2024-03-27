@@ -26,6 +26,20 @@ public class TodoService {
 
     // Todo 아이템 생성
     public List<TodoEntity> create(final TodoEntity entity) {
+        validate(entity);
+
+        repository.save(entity);
+
+        log.info("Entity id: {} is saved", entity.getId());
+
+        return repository.findByUserId(entity.getUserId());
+    }
+
+    public List<TodoEntity> retrieve(final String userId) {
+        return repository.findByUserId(userId);
+    }
+
+    private void validate(final TodoEntity entity) {
         if(entity == null) {
             log.warn("Entity cannot be null.");
             throw new RuntimeException("Entity cannot be null.");
@@ -35,11 +49,5 @@ public class TodoService {
             log.warn("Unknown user.");
             throw new RuntimeException("Unknown user.");
         }
-
-        repository.save(entity);
-
-        log.info("Entity id: {} is saved", entity.getId());
-
-        return repository.findByUserId(entity.getUserId());
     }
 }
