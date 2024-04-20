@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import './App.css';
 import Todo from './Todo';
-import { List, Paper } from "@mui/material";
+import { Container, List, Paper } from "@mui/material";
+import AddTodo from './AddTodo';
 
 function App() {
   // item 상태 변수
@@ -13,11 +14,14 @@ function App() {
     id: "1",
     title: "Hello World 2",
     done: false
-  }, {
-    id: "2",
-    title: "Hello World 3",
-    done: true
   }]);
+
+  const addItem = (item) => {
+    item.id = "ID" + item.length;
+    item.done = false;
+    setItems([...items, item]); // 자동으로 리렌더링이 일어남
+    console.log("items : ", items);
+  }
 
   let todoItems = 
     items.length > 0 && (
@@ -30,11 +34,11 @@ function App() {
       </Paper>
     )
 
-  return (
-    <div className="App">
-      {/* <Todo item={items[0]} />
-      <Todo item={items[1]} /> */}
-      {todoItems}
+  return ( <div className='App'>
+      <Container maxWidth="md">
+        <AddTodo addItem={addItem} />
+        <div className='TodoList'> {todoItems} </div>
+      </Container>
     </div>
   );
 }
