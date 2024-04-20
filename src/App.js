@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 import Todo from './Todo';
 import { Container, List, Paper } from "@mui/material";
@@ -8,10 +8,27 @@ function App() {
   // item 상태 변수
   const [items, setItems] = useState([]);
 
+  useEffect(() => {
+    const requestOptions = {
+      method: "GET",
+      headers: {"Content-Type": "application/json"}
+    };
+
+    fetch("http://localhost:8080/todo", requestOptions)
+      .then((response)=>response.json())
+      .then(
+        (response)=> {
+          setItems(response.data);
+        }, (error) => {}
+      );
+  },[]);
+
+  
+
   const editItem = () => {
     setItems([...items]);
   }
-  
+
   const deleteItem = (item) => {
     const newItems = items.filter(e => e.id != item.id);
     setItems([...newItems]);
