@@ -6,15 +6,16 @@ import AddTodo from './AddTodo';
 
 function App() {
   // item 상태 변수
-  const [items, setItems] = useState([{
-    id: "0",
-    title: "Hello World 1",
-    done: true 
-  }, {
-    id: "1",
-    title: "Hello World 2",
-    done: false
-  }]);
+  const [items, setItems] = useState([]);
+
+  const editItem = () => {
+    setItems([...items]);
+  }
+  
+  const deleteItem = (item) => {
+    const newItems = items.filter(e => e.id != item.id);
+    setItems([...newItems]);
+  }
 
   const addItem = (item) => {
     item.id = "ID" + item.length;
@@ -28,7 +29,7 @@ function App() {
       <Paper style={{margin: 16}}>
         <List>
           {items.map((item) => (
-            <Todo item={item} key={item.id} />
+            <Todo item={item} key={item.id} deleteItem={deleteItem} editItem={editItem}/>
           ))}
         </List>
       </Paper>
