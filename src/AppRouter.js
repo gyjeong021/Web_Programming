@@ -29,3 +29,5 @@ function AppRouter() {
         </div>
     )
 }
+
+export default AppRouter;
