@@ -50,3 +50,8 @@ export function signout() {
     localStorage.setItem("ACCESS_TOKEN", null);
     window.location.href = "/login";
 }
+
+// 회원가입 (계정 생성)
+export function signup(userDTO) {
+    return call("/auth/signup", "POST", userDTO);
+}
