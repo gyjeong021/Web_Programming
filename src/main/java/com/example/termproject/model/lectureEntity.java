@@ -15,14 +15,15 @@ import org.hibernate.annotations.GenericGenerator;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Book")
-public class bookEntity {
+@Table(name = "Lecture")
+public class lectureEntity {
     @Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id;
     private String userId;
-    private String title;
-    private String author;
-    private String publisher;
+    private String studentName;
+    private String lecture;
+    private String professor;
+    private String university;
 }
